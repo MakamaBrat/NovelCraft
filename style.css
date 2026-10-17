@@ -57,3 +57,15 @@ h3{font-size:22px;font-weight:700}
 .splash .cta{width:100%;padding:20px;border-radius:99px;background:var(--grad);color:#2a1456;font-size:20px;font-weight:600;margin-top:34px}
 .big{font-size:40px;font-weight:700;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-.5px}
 .toast{position:absolute;left:50%;bottom:100px;transform:translateX(-50%);background:var(--grad);color:#2a1456;padding:10px 20px;border-radius:99px;font-weight:600;z-index:9}
+.proj .open{display:flex;gap:14px;align-items:center;flex:1;text-align:left;min-width:0}
+.proj .more{width:36px;height:60px;font-size:20px;color:var(--mute)}
+.proj{padding:10px 6px 10px 10px}
+.gate{align-items:center;justify-content:center;text-align:center;gap:14px;padding:32px}
+.gate p{color:var(--mute);max-width:300px}
+.gate .cta{padding:16px 28px;border-radius:99px;background:var(--grad);color:#2a1456;font-weight:600;font-size:17px;text-decoration:none}
+.modal{position:absolute;inset:0;background:rgba(5,4,25,.7);display:grid;place-items:center;z-index:20;padding:24px}
+.modal .card{background:var(--bg2);padding:20px;width:100%;display:flex;flex-direction:column;gap:14px}
+.modal input{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 14px;color:var(--text);font:inherit}
+.modal .btns{display:flex;gap:10px}.modal .btns button{flex:1;padding:12px;border-radius:14px;background:var(--card)}
+.modal .btns .ok{background:var(--grad);color:#2a1456;font-weight:600}
+.empty{padding:28px 12px;text-align:center;color:var(--mute)}
