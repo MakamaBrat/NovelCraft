@@ -580,7 +580,7 @@ function mcClose(o){const M=o&&o.menu;if(!M)return;mcNorm(M);mcPend.delete(o.id)
   const ids=new Set();M.wins.forEach(id=>{if(id!=null&&get(id)&&!dying.has(id))subtree(id).forEach(x=>ids.add(x.id))});
   mcReset(ids)}
 const mcClick=b=>{for(const m of objs){const M=m.menu;if(!M)continue;mcNorm(M);M.btns.forEach((id,i)=>{if(id===b.id)mcOpen(m,i)})}};
-const fire=o=>{if(!o.btn||o.btn.interactable===false)return;if(goBlocked(o))return;(o.btn.onClick||[]).slice().forEach(exec);mcClick(o)};
+const fire=o=>{if(!o.btn||o.btn.interactable===false)return;if(goBlocked(o))return;(o.btn.onClick||[]).slice().forEach(exec);mcClick(o);if(o.name==='Start'&&window.openStudio)window.openStudio()};
 
 /* ================= Button: вид и попадание ================= */
 const mulCol=(a,b)=>{const p=h=>[1,3,5].map(i=>parseInt(h.substr(i,2),16)),A=p(a),B=p(b);return'#'+A.map((v,i)=>Math.round(v*B[i]/255).toString(16).padStart(2,'0')).join('')};
