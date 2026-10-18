@@ -1,30 +1,27 @@
-# NovelCraft — Telegram Mini App
+# NovelCraft
 
-## 1. Supabase
-Создайте проект → SQL Editor → выполните `supabase.sql`.
-Ключ `service_role` (Settings → API) используется только на сервере (Vercel env), в браузер не попадает.
+Статический веб-билд, собранный в Unity 2D Editor (File ▸ Export ▸ Web).
+Сборка не требуется — на Vercel это обычный статический сайт.
 
-## 2. Бот
-@BotFather → `/newbot` → получите токен и username.
-Затем `/newapp` (или Bot Settings → Menu Button) и укажите URL деплоя на Vercel.
+## Деплой на Vercel
 
-## 3. Vercel → Environment Variables
-| Переменная | Значение |
-|---|---|
-| BOT_TOKEN | токен от BotFather |
-| BOT_USERNAME | username бота без @ |
-| SUPABASE_URL | https://xxxx.supabase.co |
-| SUPABASE_SERVICE_ROLE_KEY | service_role ключ |
-| APP_URL | https://ваш-проект.vercel.app |
-| WEBHOOK_SECRET | любая случайная строка (для /start) |
+**Через CLI** (в этой папке):
 
-Деплой: `vercel --prod` (или импорт из GitHub, Framework: Other).
+    npx vercel --prod
 
-## 4. Вебхук для /start (по желанию)
-curl "https://api.telegram.org/bot<BOT_TOKEN>/setWebhook" -d "url=<APP_URL>/api/bot" -d "secret_token=<WEBHOOK_SECRET>"
+На вопросы отвечайте Enter: Framework Preset — "Other", Build Command — пусто, Output Directory — "." (текущая папка).
 
-## Как это работает
-- Клиент отправляет `Telegram.WebApp.initData` в заголовке `Authorization: tma ...`.
-- `api/_lib.js` проверяет HMAC-подпись по токену бота, берёт `user.id` из подписанных данных.
-- Все запросы к Supabase идут с сервера и всегда фильтруются по `tg_id` пользователя.
-- Открытие из обычного браузера показывает экран с кнопкой «Открыть в Telegram».
+**Через сайт:** vercel.com ▸ Add New ▸ Project ▸ загрузите эту папку (или залейте её в GitHub-репозиторий и импортируйте его).
+
+## Локальная проверка
+
+    npx serve .
+
+(открывать index.html двойным кликом нельзя — браузеры блокируют загрузку game.json по file://)
+
+## Что внутри
+
+- `index.html`, `player.js` — страница и рантайм игры
+- `game.json` — сцена, анимации, Animator-контроллеры
+- `assets/` — спрайты, шрифты, видео и звуки (имена содержат хэш, кэшируются навсегда)
+- `vercel.json` — кэш-заголовки
