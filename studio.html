@@ -1,0 +1,88 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>NovelCraft Studio</title>
+<style>
+@font-face{font-family:NC;src:url(assets/9-e0e20f3f.otf)}
+:root{--bg:#202020;--c:#2e2e2e;--a:#5aa0ff;--m:#999}
+*{box-sizing:border-box}body{margin:0;background:#000;color:#eee;font:15px system-ui,sans-serif}
+#app{max-width:480px;height:100dvh;margin:auto;background:var(--bg);display:flex;flex-direction:column;position:relative;overflow:hidden}
+h1,h2{font-family:NC,system-ui;margin:0;font-weight:400}
+header{display:flex;align-items:center;gap:8px;padding:12px;border-bottom:1px solid #333}header h2{flex:1;font-size:22px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+button,select,input,textarea{font:inherit;color:inherit;background:var(--c);border:1px solid #444;border-radius:12px;padding:9px 12px}
+button{cursor:pointer}button.p{background:var(--a);border-color:var(--a);color:#fff}button.i{width:40px;padding:8px}button.d{color:#f66}
+.tabs{display:flex;overflow-x:auto;gap:6px;padding:10px 12px}.tabs button{white-space:nowrap;border-radius:20px}.tabs .on{background:var(--a);border-color:var(--a)}
+main{flex:1;overflow:auto;padding:12px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:var(--c);border-radius:16px;padding:10px;text-align:center;cursor:pointer;overflow:hidden}.card small,.row small{color:var(--m);display:block}
+.av{width:100%;aspect-ratio:1;border-radius:12px;background:#444 center/cover;display:flex;align-items:center;justify-content:center;font-size:40px;margin-bottom:6px}
+.row{background:var(--c);border-radius:14px;padding:12px;margin-bottom:8px;cursor:pointer;display:flex;gap:10px;align-items:center}.row>div{flex:1;min-width:0}
+.row b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.empty{color:var(--m);text-align:center;margin-top:40px}
+#m{position:absolute;inset:0;background:#000b;display:flex;align-items:flex-end;z-index:9}#m form{background:#262626;width:100%;padding:16px;border-radius:20px 20px 0 0;display:flex;flex-direction:column;gap:8px;max-height:90%;overflow:auto}
+label{color:var(--m);font-size:13px}form input,form textarea,form select{width:100%}
+.chat{display:flex;flex-direction:column;gap:6px}.b{max-width:80%;padding:8px 12px;border-radius:16px;background:var(--c);align-self:flex-start;position:relative}.b.R{align-self:flex-end;background:var(--a)}.b.N{align-self:center;color:var(--m);font-style:italic;background:none;text-align:center}
+.b small{display:block;opacity:.7;font-size:12px}.comp{display:flex;gap:6px;padding:10px;border-top:1px solid #333}.comp input{flex:1;min-width:0}
+.bar{display:flex;gap:6px;padding:8px 12px;border-bottom:1px solid #333}.bar select{flex:1;min-width:0;padding:6px}
+.box{background:var(--c);border-radius:14px;padding:12px;margin-bottom:10px;display:flex;flex-direction:column;gap:6px}
+.st{flex:1;position:relative;background:#333 center/cover;display:flex;align-items:flex-end;justify-content:space-between;padding:0 8px}
+.pc{width:42%;aspect-ratio:3/4;background:#555 bottom/contain no-repeat;border-radius:18px 18px 0 0;display:flex;align-items:center;justify-content:center;font-size:64px;transition:.2s;opacity:.45;filter:brightness(.6)}.pc.on{opacity:1;filter:none;transform:translateY(-8px)}
+.tb{background:#000c;padding:16px;min-height:140px;display:flex;flex-direction:column;gap:8px;cursor:pointer}.tb b{color:var(--a)}
+.ch{display:flex;flex-direction:column;gap:8px;position:absolute;left:12px;right:12px;top:30%}.ch button{background:#000c;border-color:var(--a);padding:14px}
+</style></head><body><div id="app"></div><script>
+const $=s=>document.querySelector(s),uid=()=>Math.random().toString(36).slice(2,8),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let db=JSON.parse(localStorage.nc||'null')||{p:[]},st={s:'home',tab:'chars'},pl={},tmp={};
+const save=()=>localStorage.nc=JSON.stringify(db),P=()=>db.p.find(p=>p.id==st.p),S=()=>P().scripts.find(s=>s.id==st.sc),N=()=>S().nodes.find(n=>n.id==st.n),C=id=>P().chars.find(c=>c.id==id);
+const TABS={chars:['Персонажи','👤',[['name','Имя'],['role','Роль'],['color','Цвет','color'],['img','Картинка','img']]],items:['Предметы','🎒',[['name','Название'],['desc','Описание','area'],['img','Картинка','img']]],maps:['Карты','🗺️',[['name','Название'],['desc','Описание','area'],['img','Фон','img']]],texts:['Тексты','📝',[['name','Название'],['body','Текст','area']]],vars:['Переменные','🔢',[['name','Имя'],['val','Начальное значение']]],scripts:['Скрипты','📜',[['name','Название']]]};
+const TY={dialog:'💬 Диалог',choice:'🔀 Выбор',cond:'❓ Условие',set:'🧮 Переменная'};
+const vars=()=>[...P().vars.map(v=>v.name),...P().items.map(i=>i.name)];
+const vopt=v=>vars().map(n=>`<option ${n==v?'selected':''}>${esc(n)}</option>`).join('');
+const tsel=v=>`<option value="">→ следующий по списку</option>`+S().nodes.map((n,i)=>`<option value="${n.id}" ${n.id==v?'selected':''}>${i+1}. ${esc(n.title||TY[n.type])}</option>`).join('')+`<option value="end" ${v=='end'?'selected':''}>⛔ Конец</option>`;
+const av=o=>o.img?`<div class="av" style="background-image:url(${o.img})"></div>`:`<div class="av" style="${o.color?'background:'+o.color:''}">${o.name?esc(o.name[0]):'?'}</div>`;
+function form(title,fields,o,ok,del){tmp.img=o.img;const m=document.createElement('div');m.id='m';m.innerHTML=`<form><h2>${title}</h2>${fields.map(([k,l,t])=>`<label>${l}</label>`+(t=='area'?`<textarea name="${k}" rows="5">${esc(o[k])}</textarea>`:t=='img'?`<input type="file" accept="image/*" name="${k}">`:`<input name="${k}" type="${t||'text'}" value="${esc(o[k]??(t=='color'?'#5aa0ff':''))}">`)).join('')}<button class="p">Сохранить</button>${del?'<button type="button" class="d" id="del">Удалить</button>':''}<button type="button" id="x">Отмена</button></form>`;$('#app').append(m);
+ const f=m.querySelector('form');f.querySelector('input[type=file]')?.addEventListener('change',e=>{const r=new FileReader;r.onload=()=>{const i=new Image;i.onload=()=>{const k=Math.min(1,600/Math.max(i.width,i.height)),c=document.createElement('canvas');c.width=i.width*k;c.height=i.height*k;c.getContext('2d').drawImage(i,0,0,c.width,c.height);tmp.img=c.toDataURL('image/webp',.85)};i.src=r.result};r.readAsDataURL(e.target.files[0])});
+ f.onsubmit=e=>{e.preventDefault();fields.forEach(([k,,t])=>{if(t=='img')o.img=tmp.img;else o[k]=f[k].value});ok(o);save();m.remove();render()};$('#x').onclick=()=>m.remove();if(del)$('#del').onclick=()=>{if(confirm('Удалить?')){del();save();m.remove();render()}}}
+function render(){const a=$('#app'),m=$('#m');a.innerHTML='';const s=st.s;
+ if(s=='home')a.innerHTML=`<header><h2>🎮 NovelCraft</h2><button class="p i" data-a="newp">+</button></header><main>${db.p.length?db.p.map(p=>`<div class="row" data-a="openp" data-i="${p.id}"><div><b>${esc(p.name)}</b><small>${p.chars.length} персонажей · ${p.scripts.length} скриптов</small></div><button class="i d" data-a="delp" data-i="${p.id}">✕</button></div>`).join(''):'<p class="empty">Твоя история начинается здесь.<br>Нажми «+», чтобы создать проект</p>'}</main>`;
+ else if(s=='proj'){const p=P(),t=TABS[st.tab];a.innerHTML=`<header><button class="i" data-a="home">←</button><h2>${esc(p.name)}</h2><button class="p i" data-a="add">+</button></header><div class="tabs">${Object.entries(TABS).map(([k,v])=>`<button class="${k==st.tab?'on':''}" data-a="tab" data-i="${k}">${v[1]} ${v[0]}</button>`).join('')}</div><main>${list(p,t)}</main>`}
+ else if(s=='script'){const sc=S();a.innerHTML=`<header><button class="i" data-a="proj">←</button><h2>${esc(sc.name)}</h2><button class="i" data-a="play">▶</button></header><div class="bar"><select id="nt">${Object.entries(TY).map(([k,v])=>`<option value="${k}">${v}</option>`).join('')}</select><button class="p" data-a="addn">+ Добавить</button></div><main>${sc.nodes.map((n,i)=>`<div class="row" data-a="edn" data-i="${n.id}"><span>${i+1}</span><div><b>${esc(n.title||TY[n.type])}</b><small>${TY[n.type]} · ${sum(n)}</small></div><button class="i" data-a="up" data-i="${n.id}">↑</button></div>`).join('')||'<p class="empty">Добавь первый диалог. Начало — верхний блок.</p>'}</main>`}
+ else if(s=='node')node(a);else if(s=='play')draw();
+ if(m)a.append(m)}
+function list(p,t){const k=st.tab,L=p[k];if(!L.length)return`<p class="empty">Пока пусто — нажми «+»</p>`;
+ if(['chars','items','maps'].includes(k))return`<div class="grid">${L.map(o=>`<div class="card" data-a="edit" data-i="${o.id}">${av(o)}<b>${esc(o.name)}</b><small>${esc(o.role||o.desc||'')}</small></div>`).join('')}</div>`;
+ return L.map(o=>`<div class="row" data-a="${k=='scripts'?'opens':'edit'}" data-i="${o.id}"><div><b>${esc(o.name)}</b><small>${k=='vars'?'старт: '+esc(o.val):k=='texts'?esc(o.body):o.nodes.length+' блоков'}</small></div>${k=='scripts'?`<button class="i" data-a="edit" data-i="${o.id}">✎</button>`:''}</div>`).join('')+(k=='vars'?`<h3>Предметы (счётчик)</h3>`+p.items.map(i=>`<div class="row"><b>${esc(i.name)}</b></div>`).join(''):'')}
+function sum(n){return n.type=='dialog'?`${n.lines.length} реплик`:n.type=='choice'?n.opts.length+' вариантов':n.type=='cond'?`${n.var} ${n.op} ${n.val}`:`${n.var} ${n.op} ${n.val}`}
+function node(a){const n=N(),p=P(),back=`<header><button class="i" data-a="script">←</button><h2>${TY[n.type]}</h2><button class="i d" data-a="deln">🗑</button></header>`;
+ if(n.type=='dialog'){const ch=['<option value="">— нет —</option>'];const co=v=>p.chars.map(c=>`<option value="${c.id}" ${c.id==v?'selected':''}>${esc(c.name)}</option>`).join('');
+  const nm=w=>w=='L'?C(n.L)?.name:w=='R'?C(n.R)?.name:'';
+  a.innerHTML=back+`<div class="bar"><select data-k="L"><option value="">Слева: нет</option>${co(n.L)}</select><select data-k="R"><option value="">Справа: нет</option>${co(n.R)}</select></div><div class="bar"><select data-k="map"><option value="">Фон: по умолчанию</option>${p.maps.map(c=>`<option value="${c.id}" ${c.id==n.map?'selected':''}>${esc(c.name)}</option>`).join('')}</select><input data-k="title" placeholder="Название" value="${esc(n.title)}" style="flex:1;min-width:0"></div><main class="chat" id="ch">${n.lines.map((l,i)=>`<div class="b ${l.w||'N'}" data-a="dell" data-i="${i}" title="Нажми, чтобы удалить">${l.w?`<small>${esc(nm(l.w))}</small>`:''}${esc(l.t)}</div>`).join('')}</main><div class="bar"><select data-k="next">${tsel(n.next)}</select></div><div class="comp"><select id="sp"><option value="">Рассказчик</option>${n.L?`<option value="L">${esc(nm('L'))}</option>`:''}${n.R?`<option value="R">${esc(nm('R'))}</option>`:''}</select><input id="tx" placeholder="Сообщение… {переменная}"><button class="p i" data-a="send">➤</button></div>`;$('#ch').scrollTop=1e9;return}
+ let h='';
+ if(n.type=='choice')h=`<div class="box"><label>Вопрос / подпись</label><input data-k="title" value="${esc(n.title)}"></div>`+n.opts.map((o,i)=>`<div class="box"><input data-o="${i}" data-k="text" placeholder="Текст варианта" value="${esc(o.text)}"><select data-o="${i}" data-k="goto">${tsel(o.goto)}</select><button class="d" data-a="delo" data-i="${i}">Удалить вариант</button></div>`).join('')+`<button data-a="addo">+ Вариант</button>`;
+ else{const ops=n.type=='cond'?['==','!=','>','<','>=','<=']:['=','+=','-='];
+  h=`<div class="box"><label>Переменная / предмет</label><select data-k="var">${vopt(n.var)}</select><label>${n.type=='cond'?'Сравнение':'Действие'}</label><select data-k="op">${ops.map(o=>`<option ${o==n.op?'selected':''}>${o}</option>`).join('')}</select><label>Значение</label><input data-k="val" value="${esc(n.val)}"></div>`+(n.type=='cond'?`<div class="box"><label>Если верно →</label><select data-k="then">${tsel(n.then)}</select><label>Иначе →</label><select data-k="else">${tsel(n.else)}</select></div>`:`<div class="box"><label>Дальше →</label><select data-k="next">${tsel(n.next)}</select></div>`)}
+ a.innerHTML=back+`<main>${h}</main>`}
+const num=v=>v!==''&&!isNaN(v)?+v:v;
+function go(t){const ns=S().nodes;if(t=='end')pl.id=null;else if(t)pl.id=t;else{const k=ns.findIndex(x=>x.id==pl.id);pl.id=ns[k+1]?.id}pl.i=0}
+function step(){for(let g=0;g<500;g++){const n=S().nodes.find(x=>x.id==pl.id);if(!n){pl.end=1;break}
+ if(n.type=='dialog'){pl.st={L:n.L,R:n.R,map:n.map};if(pl.i<n.lines.length)break;go(n.next)}else if(n.type=='choice')break;
+ else if(n.type=='cond'){const a=pl.V[n.var],b=num(n.val),r={'==':a==b,'!=':a!=b,'>':a>b,'<':a<b,'>=':a>=b,'<=':a<=b}[n.op];go(r?n.then:n.else)}
+ else{const b=num(n.val),V=pl.V;V[n.var]=n.op=='='?b:n.op=='+='?(+V[n.var]||0)+(+b||0):(+V[n.var]||0)-(+b||0);go(n.next)}}render()}
+function draw(){const a=$('#app'),n=S().nodes.find(x=>x.id==pl.id),s=pl.st||{},p=P(),map=p.maps.find(m=>m.id==s.map),f=t=>String(t||'').replace(/\{(.+?)\}/g,(m,k)=>pl.V[k]??m);
+ const l=n?.type=='dialog'?n.lines[pl.i]:null,pc=(w,id)=>{const c=C(id);return c?`<div class="pc ${l?.w==w?'on':''}" style="${c.img?`background-image:url(${c.img})`:`background-color:${c.color||'#555'}`}">${c.img?'':esc(c.name[0])}</div>`:'<div></div>'};
+ let box=pl.end?`<b>Конец</b><div>Спасибо за игру!</div><button class="p" data-a="play">Заново</button>`:l?`<b>${l.w?esc((C(s[l.w])||{}).name):''}</b><div>${esc(f(l.t))}</div>`:'';
+ a.innerHTML=`<header><button class="i" data-a="script">←</button><h2>${esc(S().name)}</h2></header><div class="st" style="background-image:url(${map?.img||'assets/6-32a071df.png'})">${pc('L',s.L)}${pc('R',s.R)}${n?.type=='choice'?`<div class="ch">${n.opts.map((o,i)=>`<button data-a="pick" data-i="${i}">${esc(f(o.text))}</button>`).join('')}</div>`:''}</div><div class="tb" data-a="${l?'tap':''}">${box}</div>`}
+function addNode(t){const n={id:uid(),type:t,title:'',next:''};if(t=='dialog')Object.assign(n,{lines:[],L:'',R:'',map:''});if(t=='choice')n.opts=[{text:'Да',goto:''},{text:'Нет',goto:''}];if(t=='cond')Object.assign(n,{var:vars()[0]||'',op:'==',val:'1',then:'',else:''});if(t=='set')Object.assign(n,{var:vars()[0]||'',op:'=',val:'1'});S().nodes.push(n);st.n=n.id;st.s='node';save();render()}
+const act={
+ newp(){const n=prompt('Название проекта');if(n){db.p.push({id:uid(),name:n,chars:[],items:[],maps:[],texts:[],vars:[],scripts:[]});save();render()}},
+ openp(i){st.p=i;st.s='proj';render()},delp(i){if(confirm('Удалить проект?')){db.p=db.p.filter(p=>p.id!=i);save();render()}},home(){st.s='home';render()},proj(){st.s='proj';render()},script(){st.s='script';render()},
+ tab(i){st.tab=i;render()},opens(i){st.sc=i;st.s='script';render()},
+ add(){const k=st.tab,t=TABS[k],o={id:uid()};if(k=='scripts')o.nodes=[];form('Новый: '+t[0],t[2],o,x=>P()[k].push(x))},
+ edit(i){const k=st.tab,t=TABS[k],L=P()[k],o=L.find(x=>x.id==i);form(t[0],t[2],o,()=>0,()=>L.splice(L.indexOf(o),1))},
+ addn(){addNode($('#nt').value)},edn(i){st.n=i;st.s='node';render()},up(i,e){const L=S().nodes,k=L.findIndex(n=>n.id==i);if(k>0){[L[k-1],L[k]]=[L[k],L[k-1]];save();render()}},
+ deln(){if(confirm('Удалить блок?')){const L=S().nodes;L.splice(L.findIndex(n=>n.id==st.n),1);save();act.script()}},
+ send(){const t=$('#tx').value.trim();if(!t)return;N().lines.push({w:$('#sp').value,t});save();const w=$('#sp').value;render();$('#sp').value=w;$('#tx').focus()},
+ dell(i){N().lines.splice(i,1);save();render()},addo(){N().opts.push({text:'',goto:''});save();render()},delo(i){N().opts.splice(i,1);save();render()},
+ play(){const V={};P().vars.forEach(v=>V[v.name]=num(v.val));P().items.forEach(i=>V[i.name]=0);pl={V,id:S().nodes[0]?.id,i:0};st.s='play';step()},
+ tap(){pl.i++;step()},pick(i){go(N_().opts[i].goto);step()}};
+const N_=()=>S().nodes.find(x=>x.id==pl.id);
+$('#app').addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;e.stopPropagation();act[b.dataset.a]?.(b.dataset.i,e)});
+$('#app').addEventListener('change',e=>{const t=e.target,k=t.dataset.k;if(!k)return;const n=N(),o=t.dataset.o!=null?n.opts[t.dataset.o]:n;o[k]=t.value;save();if(k=='L'||k=='R')render()});
+$('#app').addEventListener('keydown',e=>{if(e.key=='Enter'&&e.target.id=='tx')act.send()});
+render();
+</script></body></html>
