@@ -1196,20 +1196,21 @@ body.rt .cmw.tm .cmtr:active{transform:scale(.95)}
 .chart>.b,.chart>.t{display:none}
 .chw{position:absolute;inset:0;pointer-events:none;overflow:visible}
 .chw:not(.flat){filter:drop-shadow(0 10px 18px rgba(0,0,0,.32))}
-.chw.lv:not(.flat){filter:drop-shadow(0 4px 6px rgba(0,0,0,.3))}
+.chw:not(.rdy){filter:none}
+#cha-vx{display:none!important}
 .chw svg{display:block}
 body.rt .chw{pointer-events:auto}
 .chw [data-lg]{cursor:pointer}
-.chw.hh [data-t]{transition:opacity .15s,filter .15s}
+.chw.hh [data-t]{transition:none}
 .chw.hh [data-t]:not(.hv){opacity:.5}
-.chw.hh [data-t].hv{filter:brightness(1.18)}
+.chw.hh [data-t].hv{filter:none}
 .chtip{position:absolute;display:none;transform:translate(-50%,-135%);background:#0c0a1a;color:#fff;font:600 12px system-ui,sans-serif;padding:5px 10px;border-radius:9px;white-space:nowrap;pointer-events:none;box-shadow:0 4px 14px rgba(0,0,0,.45);z-index:5}
 .chw:not(.rdy) .ci-pulse,.chw:not(.rdy) .ci-fl,.chw:not(.rdy) .ci-flow{animation:none}
-.ci-pulse{animation:cip 2.2s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+.ci-pulse{animation:none;transform-box:fill-box;transform-origin:center}
 @keyframes cip{0%,100%{opacity:.22;transform:scale(1)}50%{opacity:.6;transform:scale(1.55)}}
-.ci-fl{animation:cif 4s ease-in-out infinite}
+.ci-fl{animation:none!important}
 @keyframes cif{0%,100%{transform:translate(0,0)}33%{transform:translate(2.4px,-2.8px)}66%{transform:translate(-2.4px,2.2px)}}
-.ci-flow{animation:cifw 1.6s linear infinite}
+.ci-flow{animation:none}
 @keyframes cifw{to{stroke-dashoffset:-12.5}}
 #p-h{flex-direction:column;align-items:stretch;gap:12px}
 #p-h .chp{display:none;flex-direction:column;gap:10px;width:100%}
@@ -5689,7 +5690,7 @@ function lvKF(m,k,A){
   case 'pulse':{if(sc){const g3=k=='bar'?'1 '+(1+A*.05).toFixed(3):two(k=='pt'?1+A*.3:1+A*.04);return[{offset:0,scale:'1 1',easing:'ease-out'},{offset:.14,scale:g2,easing:'ease-in'},{offset:.28,scale:'1 1',easing:'ease-out'},{offset:.42,scale:g3,easing:'ease-in'},{offset:.6,scale:'1 1'},{offset:1,scale:'1 1'}]}
    return[{offset:0,opacity:1,easing:'ease-out'},{offset:.14,opacity:1-A*.4,easing:'ease-in'},{offset:.28,opacity:1,easing:'ease-out'},{offset:.42,opacity:1-A*.25,easing:'ease-in'},{offset:.6,opacity:1},{offset:1,opacity:1}]}}
  return null}
-function lvSync(i){const an=i.ch&&i.ch.an,m=an&&an.lv,r=LV.get(i.id);if(!m&&!r)return;const e=els[i.id],w=e&&e.querySelector(':scope>.chw');
+function lvSync(i){const r=LV.get(i.id);if(r)lvStop(i.id);return;const an=i.ch&&i.ch.an,m=an&&an.lv;const e=els[i.id],w=e&&e.querySelector(':scope>.chw');
  const want=!!(m&&LIVE.some(q=>q[0]==m)&&(RT||LVPV===i.id)&&!i.hd&&w&&w.classList.contains('rdy')&&!RUN.has(i.id)&&w.querySelector('svg'));
  if(!want){if(r)lvStop(i.id);return}
  const P=Math.max(.5,+an.lvp||3)*1000,A=cl((+an.lva||50)/100,.05,1),key=[m,P,A,w._v|0,Math.round(i.w),Math.round(i.h)].join('|');
@@ -5701,11 +5702,6 @@ function lvSync(i){const an=i.ch&&i.ch.an,m=an&&an.lv,r=LV.get(i.id);if(!m&&!r)r
    a.push(el.animate(kf,{duration:P,delay:-(P*(1-spread*j/N)),iterations:Infinity,easing:'linear'}))})}
  w.classList.add('lv');LV.set(i.id,{key,w,a,e:es})}
 function lvBtn(){const b=document.getElementById('cha-lvp');if(!b)return;const i=get(sel),on=!!(i&&LVPV===i.id);if(b._on!==on){b._on=on;b.textContent=on?'⏹ Остановить предпросмотр':'▶ Предпросмотр';b.classList.toggle('on',on)}}
-(function lvLoop(){let t=160;try{if(!document.hidden){const ch=items.filter(i=>i.t=='chart');ch.forEach(lvSync);
- if(LV.size){const ids=new Set(ch.map(j=>j.id));LV.forEach((r,id)=>{if(!ids.has(id))lvStop(id)})}
- if(LVPV!=null&&(RT||sel!==LVPV))LVPV=null;lvBtn();
- const pz=!!(window.__mdOpen&&window.__mdOpen()>0);LV.forEach(r=>{if(r.pz!==pz){r.pz=pz;r.a.forEach(a=>{try{pz?a.pause():a.play()}catch(_){}})}});
- if(!LV.size&&!ch.length)t=500}else t=600}catch(_){}setTimeout(lvLoop,t)})();
 function newCh(k){const sm=sample(k);return Object.assign({k,st:0,dirty:0,tdirty:0,an:Object.assign({},AD),hid:[],nw:1},sm)}
 function chNorm(i){let ch=i.ch;if(!ch||!ch.k||!TYPES.some(t=>t[0]==ch.k)){ch=i.ch=newCh('line')}
  ch.o=Object.assign({},OD,ch.o);ch.an=Object.assign({},AD,ch.an);if(!Array.isArray(ch.cats))ch.cats=[];if(!Array.isArray(ch.ser))ch.ser=[];if(ch.st==null)ch.st=0;return ch}
