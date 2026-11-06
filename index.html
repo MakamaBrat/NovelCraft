@@ -3,8 +3,20 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>NovelCraft</title><link rel="icon" href="favicon.svg">
 <style>
+@font-face{font-family:'Pacifico';font-weight:1 999;font-display:swap;src:url(fonts/pacifico-l.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Pacifico';font-weight:1 999;font-display:swap;src:url(fonts/pacifico-c.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Caveat';font-weight:1 999;font-display:swap;src:url(fonts/caveat-l.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Caveat';font-weight:1 999;font-display:swap;src:url(fonts/caveat-c.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Oswald';font-weight:1 999;font-display:swap;src:url(fonts/oswald-l.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Oswald';font-weight:1 999;font-display:swap;src:url(fonts/oswald-c.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Russo One';font-weight:1 999;font-display:swap;src:url(fonts/russoone-l.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Russo One';font-weight:1 999;font-display:swap;src:url(fonts/russoone-c.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Comfortaa';font-weight:1 999;font-display:swap;src:url(fonts/comfortaa-l.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Comfortaa';font-weight:1 999;font-display:swap;src:url(fonts/comfortaa-c.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
+@font-face{font-family:'Nunito';font-weight:1 999;font-display:swap;src:url(fonts/nunito-l.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'Nunito';font-weight:1 999;font-display:swap;src:url(fonts/nunito-c.woff2) format('woff2');unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;background:#07071a;font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#fff}
+html,body{height:100%;background:#07071a;font-family:Comfortaa,system-ui,sans-serif;color:#fff}
 body{display:flex;justify-content:center}
 #app{width:100%;max-width:430px;height:100dvh;position:relative;overflow:hidden;background:#12123a}
 .bg{position:absolute;inset:0;background:center/cover;transition:background-image .4s}
@@ -35,7 +47,24 @@ input:focus,textarea:focus,select:focus{border-color:#b197fc}
 .row{display:flex;gap:8px;align-items:flex-start}
 .line{background:#1b1b78d9;border-radius:14px;padding:10px;display:flex;flex-direction:column;gap:8px;flex:none}
 .avs{display:flex;gap:8px;flex:none}.avs i{flex:1;aspect-ratio:1;border-radius:12px;background:center/cover;border:3px solid transparent}.avs i.on{border-color:#ffd43b}
-.empty{text-align:center;opacity:.7;padding:30px 10px;line-height:1.5}
+.bgs i.up,.avs i.up{display:grid;place-items:center;background:#2b2b8c;font-style:normal;font-size:26px}.avs{flex-wrap:wrap}.avs i{flex:1 0 20%}.hud{position:absolute;top:18px;right:14px;background:#0009;border-radius:12px;padding:6px 10px;font-size:13px;z-index:5;line-height:1.5}
+.xl{position:absolute;inset:0;pointer-events:none;z-index:40}
+.bg{animation:br 6.8s ease-in-out infinite}@keyframes br{50%{transform:scale(1.08)}}
+@keyframes pop{from{opacity:0;transform:scale(.55) rotate(-6deg)}}@keyframes fi{from{opacity:0}}
+.tr .body>*{animation:pop .5s cubic-bezier(.3,1.7,.5,1) backwards;animation-delay:calc(var(--k,0)*45ms)}
+.hd h2,.hd input{font-family:Caveat,cursive;font-size:30px;font-weight:700;text-transform:none}
+.card b{font-family:'Russo One',sans-serif;font-weight:400}.card small{font-family:Comfortaa,sans-serif}
+.btn,.tabs button,.nm{font-family:Nunito,sans-serif}.btn.pill{background:url(img/pill.png) center/100% 100%;box-shadow:none;border-radius:999px;height:78px;font:400 22px Oswald,sans-serif;letter-spacing:4px}
+.ic.add{background:url(img/plus.png) center/cover;box-shadow:none;width:46px;height:46px}
+.end{font-family:Pacifico,cursive;font-weight:400}.sec{font-family:Oswald,sans-serif;font-weight:400}
+.mb{position:absolute;inset:0;z-index:60;background:#05051aa8;backdrop-filter:blur(3px);display:flex;align-items:center;justify-content:center;padding:22px;animation:fi .2s;transition:opacity .18s}.mb.out{opacity:0}
+.md{width:100%;border:3px solid transparent;border-radius:26px;background:linear-gradient(#171a40,#0f1130) padding-box,linear-gradient(135deg,#b197fc,#4dabf7) border-box;padding:22px 18px 18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 24px 50px #000b;animation:mp .5s cubic-bezier(.3,1.7,.5,1)}
+.mb.out .md{transform:scale(.9);transition:transform .18s}
+@keyframes mp{35%{scale:.94}from{opacity:0;transform:scale(.5) rotate(-4deg)}}
+.mt{font:700 30px Caveat,cursive;text-align:center}.mp{color:#a9a6d9;text-align:center;font:700 14px/1.4 Comfortaa,sans-serif}
+.mr{display:flex;gap:10px}.mr .btn{padding:12px;font-size:16px;flex:1;width:auto;min-width:0}.btn.dn{background:#ff6b6b;box-shadow:0 5px 0 #c92a2a}
+.ic.add:active{transform:scale(.9)}.ic{transition:transform .25s cubic-bezier(.3,1.8,.5,1)}.card{transition:transform .25s cubic-bezier(.3,1.8,.5,1)}.card:active{transform:scale(.97)}
+text-align:center;opacity:.7;padding:30px 10px;line-height:1.5}
 .banner{height:110px;border-radius:18px;background:center/cover;flex:none;margin-bottom:10px;display:flex;align-items:flex-end;padding:12px;font-weight:700;font-size:20px;text-shadow:0 2px 6px #000}
 /* player */
 .pl{padding:0}.pl .who{position:absolute;left:0;right:0;bottom:150px;height:62%;background:bottom center/contain no-repeat;pointer-events:none;animation:in .35s}
@@ -52,7 +81,9 @@ input:focus,textarea:focus,select:focus{border-color:#b197fc}
 </style></head><body><div id="app"></div>
 <script>
 const BG=['Гостиная','Город · закат','Ночной город','Лес · тропа','Пляж','Класс','Зимний лес'];
-const bgUrl=i=>`img/b${i+1}.jpg`, avUrl=i=>`img/c${i+1}.webp`;
+const cu=(i,e)=>typeof i==='number'?`img/${e[0]}${i+1}.${e[1]}`:(P()?.imgs?.[i]||''),bgUrl=i=>cu(i,['b','jpg']),avUrl=i=>cu(i,['c','webp']);
+function upl(kind,cb){const f=document.createElement('input');f.type='file';f.accept='image/*';f.onchange=()=>{const file=f.files[0];if(!file)return;const im=new Image();im.onload=()=>{const k=Math.min(1,(kind=='b'?800:480)/Math.max(im.width,im.height)),c=document.createElement('canvas');c.width=im.width*k;c.height=im.height*k;c.getContext('2d').drawImage(im,0,0,c.width,c.height);const id='u'+kind+uid(),p=P();p.imgs[id]=c.toDataURL(kind=='b'?'image/jpeg':'image/webp',.82);save();cb(id)};im.onerror=()=>dlg({t:'Не удалось открыть картинку',no:'',ok:'Понятно'});im.src=URL.createObjectURL(file)};f.click()}
+const vis=s=>s.choices.map((c,i)=>[c,i]).filter(([c])=>!c.rv||(R.vars[c.rv]||0)>=(+c.rm||0));
 const $=s=>document.querySelector(s), app=$('#app');
 const uid=()=>Math.random().toString(36).slice(2,9);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -68,8 +99,8 @@ function demo(){
      {id:s3,name:'Одна на крыше',bg:0,lines:[{who:'',text:'Ты осталась смотреть на звёзды. Иногда тишина — лучший ответ.'}],choices:[],next:''}]}];
 }
 let S;try{S=JSON.parse(localStorage.getItem(KEY))}catch(e){}
-if(!S||!Array.isArray(S.projects))S={projects:demo()};
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){alert('Не удалось сохранить: нет места в хранилище')}};
+if(!S||!Array.isArray(S.projects))S={projects:demo()};S.projects.forEach(p=>{p.vars=p.vars||[];p.imgs=p.imgs||{}});
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){dlg({t:'Нет места',p:'Память браузера заполнена. Сделай экспорт и удали лишние картинки.',no:'',ok:'Понятно'})}};
 let R={v:'splash'};
 const P=()=>S.projects.find(p=>p.id===R.pid), SC=()=>P()?.scenes.find(s=>s.id===R.sid);
 const chName=(p,id)=>p.chars.find(c=>c.id===id);
@@ -77,32 +108,32 @@ const chName=(p,id)=>p.chars.find(c=>c.id===id);
 /* ---------- views ---------- */
 const V={
 splash:()=>`<div class="bg" style="background-image:url(img/splash.jpg)"></div>
- <div class="scr"><div class="sp"><img src="img/logo.png" alt="NovelCraft"><button class="btn g" data-a="go" data-v="list" style="border:2px solid #5c6cff;border-radius:999px;letter-spacing:2px">НАЧАТЬ</button></div></div>`,
+ <div class="scr"><div class="hi" style="font-family:Pacifico,cursive;font-weight:400">Добро пожаловать</div><div class="sp"><img src="img/logo.png" alt="NovelCraft"><button class="btn pill" data-a="go" data-v="list">НАЧАТЬ</button></div></div>`,
 
 list:()=>`<div class="bg dim" style="background-image:url(img/splash.jpg)"></div><div class="scr">
- <div class="hd"><h2>Проекты</h2><button class="ic" data-a="newp">＋</button></div>
+ <div class="hd"><h2>Проекты</h2><button class="ic add" data-a="newp"></button></div>
  <div class="body"><div class="banner" style="background-image:url(img/banner.jpg)"></div>
  ${S.projects.length?S.projects.map(p=>`<div class="card" data-a="open" data-id="${p.id}"><div class="th" style="background-image:url(img/cover.jpg)"></div>
    <div class="t"><b>${esc(p.title)}</b><small>${esc(p.desc||'Без описания')}</small><br><small>${p.scenes.length} сцен · ${p.chars.length} персонажей</small></div>
-   <button class="x" data-a="delp" data-id="${p.id}">✕</button></div>`).join(''):'<div class="empty">Пока нет проектов.<br>Нажми ＋ и создай свою первую новеллу</div>'}</div></div>`,
+   <button class="x" data-a="delp" data-id="${p.id}">✕</button></div>`).join(''):'<div class="empty">Пока нет проектов.<br>Нажми ＋ и создай свою первую новеллу</div>'}<button class="btn g" data-a="imp">⬆ Импорт новеллы (.json)</button></div></div>`,
 
 proj:()=>{const p=P(),t=R.tab||'s';return `<div class="bg dim" style="background-image:url(img/splash.jpg)"></div><div class="scr">
  <div class="hd"><button class="ic" data-a="go" data-v="list">←</button><input data-t="p" data-k="title" value="${esc(p.title)}" maxlength="40"><button class="ic" data-a="play" data-sid="">▶</button></div>
- <div class="tabs"><button class="${t=='s'?'on':''}" data-a="tab" data-t="s">Сцены</button><button class="${t=='c'?'on':''}" data-a="tab" data-t="c">Персонажи</button></div>
- <div class="body">${t=='s'?scenesTab(p):charsTab(p)}</div></div>`},
+ <div class="tabs"><button class="${t=='s'?'on':''}" data-a="tab" data-t="s">Сцены</button><button class="${t=='c'?'on':''}" data-a="tab" data-t="c">Персонажи</button><button class="${t=='m'?'on':''}" data-a="tab" data-t="m">Ещё</button></div>
+ <div class="body">${t=='s'?scenesTab(p):t=='c'?charsTab(p):moreTab(p)}</div></div>`},
 
 scene:()=>{const p=P(),s=SC(),others=p.scenes.filter(x=>x.id!==s.id);
- const opts=(sel)=>`<option value="">— конец —</option>`+others.map(o=>`<option value="${o.id}" ${o.id===sel?'selected':''}>${esc(o.name)}</option>`).join('');
+ const vo=(sel,n)=>`<option value="">${n}</option>`+p.vars.map(v=>`<option value="${v.id}" ${v.id===sel?'selected':''}>${esc(v.name)}</option>`).join(''),opts=(sel)=>`<option value="">— конец —</option>`+others.map(o=>`<option value="${o.id}" ${o.id===sel?'selected':''}>${esc(o.name)}</option>`).join('');
  return `<div class="bg dim" style="background-image:url(${bgUrl(s.bg)})"></div><div class="scr">
  <div class="hd"><button class="ic" data-a="back">←</button><input data-t="s" data-k="name" value="${esc(s.name)}" maxlength="30"><button class="ic" data-a="play" data-sid="${s.id}">▶</button></div>
- <div class="body"><div class="sec">Фон</div><div class="bgs">${BG.map((n,i)=>`<i class="${i===s.bg?'on':''}" data-a="bg" data-i="${i}" style="background-image:url(${bgUrl(i)})" title="${n}"></i>`).join('')}</div>
+ <div class="body"><div class="sec">Фон</div><div class="bgs">${[...BG.keys(),...Object.keys(p.imgs).filter(k=>k[1]=='b')].map(i=>`<i class="${i===s.bg?'on':''}" data-a="bg" data-i="${i}" style="background-image:url(${bgUrl(i)})"></i>`).join('')}<i class="up" data-a="upbg">＋</i></div>
  <div class="sec">Реплики</div>
  ${s.lines.map((l,i)=>`<div class="line"><div class="row"><select data-t="l" data-i="${i}" data-k="who"><option value="">Рассказчик</option>${p.chars.map(c=>`<option value="${c.id}" ${c.id===l.who?'selected':''}>${esc(c.name)}</option>`).join('')}</select><button class="x" data-a="dell" data-i="${i}">✕</button></div>
    <textarea data-t="l" data-i="${i}" data-k="text" placeholder="Что говорит персонаж…">${esc(l.text)}</textarea></div>`).join('')}
  <button class="btn g" data-a="addl">＋ Добавить реплику</button>
  <div class="sec">Выбор игрока</div>
  ${s.choices.map((c,i)=>`<div class="line"><div class="row"><input data-t="h" data-i="${i}" data-k="text" value="${esc(c.text)}" placeholder="Вариант ответа"><button class="x" data-a="delc" data-i="${i}">✕</button></div>
-   <select data-t="h" data-i="${i}" data-k="to">${opts(c.to)}</select></div>`).join('')}
+   <select data-t="h" data-i="${i}" data-k="to">${opts(c.to)}</select>${p.vars.length?`<div class="row"><select data-t="h" data-i="${i}" data-k="fv">${vo(c.fv,'Меняет: ничего')}</select><input type="number" data-t="h" data-i="${i}" data-k="fd" value="${c.fd??1}" style="width:76px"></div><div class="row"><select data-t="h" data-i="${i}" data-k="rv">${vo(c.rv,'Нужно: без условий')}</select><input type="number" data-t="h" data-i="${i}" data-k="rm" value="${c.rm??1}" style="width:76px"></div>`:''}</div>`).join('')}
  <button class="btn g" data-a="addc">＋ Добавить выбор</button>
  ${s.choices.length?'':`<div class="sec">Если выбора нет — дальше</div><select data-t="s" data-k="next">${opts(s.next)}</select>`}
  </div></div>`},
@@ -113,56 +144,78 @@ play:()=>{const p=P(),s=p.scenes.find(x=>x.id===R.sid);if(!s)return V.end();
  if(!last){const c=chName(p,l.who);
   inner=`${c?`<div class="who" style="background-image:url(${avUrl(c.av)})" data-key="${R.sid}${R.i}"></div>`:''}
   <div class="dlg" data-a="next">${c?`<div class="nm">${esc(c.name)}</div>`:''}${esc(l.text)||'…'}<span class="nx">▼</span></div>`;
- }else if(s.choices.length){
-  inner=`<div class="ch">${s.choices.map((c,i)=>`<button class="btn" data-a="pick" data-i="${i}">${esc(c.text)||'…'}</button>`).join('')}</div>`;
+ }else if(vis(s).length){
+  inner=`<div class="ch">${vis(s).map(([c,i])=>`<button class="btn" data-a="pick" data-i="${i}">${esc(c.text)||'…'}</button>`).join('')}</div>`;
  }else return nextScene(s);
- return `<div class="bg" style="background-image:url(${bgUrl(s.bg)})"></div><div class="scr pl"><button class="ic cl" data-a="stop">✕</button>${inner}</div>`},
+ return `<div class="bg" style="background-image:url(${bgUrl(s.bg)})"></div><div class="scr pl"><button class="ic cl" data-a="stop">✕</button>${p.vars.length?`<div class="hud">${p.vars.map(v=>`${esc(v.name)}: <b>${R.vars[v.id]||0}</b>`).join('<br>')}</div>`:''}${inner}</div>`},
 
 end:()=>`<div class="bg dim" style="background-image:url(img/splash.jpg)"></div><div class="end">КОНЕЦ<button class="btn" data-a="stop">В редактор</button><button class="btn g" data-a="play" data-sid="">Сыграть ещё раз</button></div>`
 };
 function nextScene(s){const n=s.next&&P().scenes.find(x=>x.id===s.next);if(n){R.sid=n.id;R.i=0;return V.play()}return V.end()}
-function scenesTab(p){return (p.scenes.length?p.scenes.map(s=>`<div class="card" data-a="edit" data-id="${s.id}"><div class="th" style="background-image:url(${bgUrl(s.bg)})"></div>
- <div class="t"><b>${esc(s.name)}</b><small>${s.lines.length} реплик${s.choices.length?` · ${s.choices.length} выбора`:''}</small></div><button class="x" data-a="dels" data-id="${s.id}">✕</button></div>`).join(''):'<div class="empty">Сцен пока нет — добавь первую</div>')
+function scenesTab(p){return (p.scenes.length?p.scenes.map((s,k)=>`<div class="card" data-a="edit" data-id="${s.id}"><div class="th" style="background-image:url(${bgUrl(s.bg)})"></div>
+ <div class="t"><b>${k?'':'★ '}${esc(s.name)}</b><small>${s.lines.length} реплик${s.choices.length?` · ${s.choices.length} выбора`:''}</small></div>${k?`<button class="x" data-a="up" data-id="${s.id}">▲</button>`:''}<button class="x" data-a="dels" data-id="${s.id}">✕</button></div>`).join(''):'<div class="empty">Сцен пока нет — добавь первую</div>')
  +`<button class="btn" data-a="adds">＋ Добавить сцену</button>`}
+function moreTab(p){return `<div class="sec">Переменные (симпатия, монеты…)</div>`+(p.vars.map((v,i)=>`<div class="line"><div class="row"><input data-t="v" data-i="${i}" data-k="name" value="${esc(v.name)}" placeholder="Название" maxlength="20"><input type="number" data-t="v" data-i="${i}" data-k="val" value="${v.val}" style="width:76px"><button class="x" data-a="delv" data-i="${i}">✕</button></div></div>`).join('')||'<div class="empty">Переменные нужны, чтобы выбор влиял на сюжет. После создания у каждого варианта в сцене появятся поля «Меняет» и «Нужно».</div>')+`<button class="btn g" data-a="addv">＋ Добавить переменную</button><div class="sec">Проект</div><button class="btn g" data-a="exp">⬇ Экспорт (.json)</button><small style="opacity:.7;padding:0 4px">Первая сцена в списке — стартовая (★). Двигай остальные кнопкой ▲.</small>`}
 function charsTab(p){const f=R.form;
  return (f?`<div class="line"><input data-t="f" data-k="name" placeholder="Имя" value="${esc(f.name)}" maxlength="20"><input data-t="f" data-k="age" placeholder="Возраст" value="${esc(f.age)}" maxlength="3" inputmode="numeric">
-  <div class="avs">${[0,1,2,3].map(i=>`<i class="${i===f.av?'on':''}" data-a="fav" data-i="${i}" style="background-image:url(${avUrl(i)})"></i>`).join('')}</div>
+  <div class="avs">${[0,1,2,3,...Object.keys(p.imgs).filter(k=>k[1]=='a')].map(i=>`<i class="${i===f.av?'on':''}" data-a="fav" data-i="${i}" style="background-image:url(${avUrl(i)})"></i>`).join('')}<i class="up" data-a="upav">＋</i></div>
   <button class="btn" data-a="savec">Готово</button></div>`
   :(p.chars.length?p.chars.map(c=>`<div class="card"><div class="th" style="background-image:url(${avUrl(c.av)});background-position:top"></div><div class="t"><b>${esc(c.name)}</b><small>${c.age?c.age+' лет':'возраст не указан'}</small></div><button class="x" data-a="delch" data-id="${c.id}">✕</button></div>`).join(''):'<div class="empty">Персонажей нет — создай первого, чтобы он заговорил в сценах</div>')+`<button class="btn" data-a="newc">＋ Создать персонажа</button>`)}
 
 /* ---------- render / events ---------- */
-function render(){const y=app.querySelector('.body')?.scrollTop;app.innerHTML=V[R.v]();const b=app.querySelector('.body');if(b&&y&&R.keep)b.scrollTop=y;R.keep=0}
+function dlg({t,p='',f=[],ok='ОК',no='Отмена',danger}){return new Promise(r=>{const m=document.createElement('div');m.className='mb';
+ m.innerHTML=`<div class="md"><div class="mt">${esc(t)}</div>${p?`<div class="mp">${esc(p)}</div>`:''}${f.map(x=>`<input placeholder="${esc(x)}" maxlength="40">`).join('')}<div class="mr">${no?`<button class="btn g" data-r="0">${no}</button>`:''}<button class="btn${danger?' dn':''}" data-r="1">${ok}</button></div></div>`;
+ const done=v=>{m.classList.add('out');setTimeout(()=>m.remove(),190);r(v)};
+ m.onclick=e=>{const b=e.target.closest('[data-r]');if(b)done(b.dataset.r==='1'?[...m.querySelectorAll('input')].map(i=>i.value):null);else if(e.target===m&&no)done(null)};
+ m.onkeydown=e=>{if(e.key==='Enter')m.querySelector('[data-r="1"]').click()};app.append(m);m.querySelector('input')?.focus()})}
+const ORD={splash:0,list:1,proj:2,scene:3,play:4,end:5};let LV='';
+function render(){const y=app.querySelector('.body')?.scrollTop,tr=!R.keep&&LV&&LV!==R.v,old=tr?[...app.children].filter(e=>!e.classList.contains('mb')):[];
+ app.innerHTML=V[R.v]();app.classList.toggle('tr',!!tr);const b=app.querySelector('.body');if(b&&y&&R.keep)b.scrollTop=y;R.keep=0;
+ if(b)[...b.children].forEach((e,i)=>e.style.setProperty('--k',Math.min(i,12)));
+ if(tr){const d=ORD[R.v]>=ORD[LV]?1:-1,xl=document.createElement('div');xl.className='xl';old.forEach(e=>xl.append(e));const nw=[...app.children];app.append(xl);
+  xl.animate([{transform:'none',opacity:1},{transform:`translateX(${-d*40}px) scale(.94)`,opacity:0}],{duration:260,easing:'ease-in'}).onfinish=()=>xl.remove();
+  nw.forEach(e=>e.animate([{transform:`translateX(${d*70}px)`,opacity:0},{transform:'none',opacity:1}],{duration:420,easing:'cubic-bezier(.3,1.25,.5,1)'}))}
+ LV=R.v}
 const go=(v,x={})=>{Object.assign(R,x,{v});render()};
 const A={
  go:d=>go(d.v),
- newp:()=>{const t=prompt('Название новеллы:');if(!t||!t.trim())return;const d=prompt('Короткое описание (можно пропустить):')||'';
-  const p={id:uid(),title:t.trim(),desc:d.trim(),chars:[],scenes:[{id:uid(),name:'Сцена 1',bg:1,lines:[],choices:[],next:''}]};S.projects.unshift(p);save();go('proj',{pid:p.id,tab:'s'})},
+ newp:async()=>{const v=await dlg({t:'Новая новелла',f:['Название','Короткое описание'],ok:'Создать'});if(!v||!v[0].trim())return;const t=v[0],d=v[1];
+  const p={id:uid(),title:t.trim(),desc:d.trim(),vars:[],imgs:{},chars:[],scenes:[{id:uid(),name:'Сцена 1',bg:1,lines:[],choices:[],next:''}]};S.projects.unshift(p);save();go('proj',{pid:p.id,tab:'s'})},
  open:d=>go('proj',{pid:d.id,tab:'s',form:null}),
- delp:d=>{if(confirm('Удалить проект целиком?')){S.projects=S.projects.filter(p=>p.id!==d.id);save();render()}},
+ delp:async d=>{if(await dlg({t:'Удалить проект?',p:'Все сцены и персонажи пропадут.',ok:'Удалить',danger:1})){S.projects=S.projects.filter(p=>p.id!==d.id);save();render()}},
  tab:d=>go('proj',{tab:d.t,form:null}),
  adds:()=>{const p=P(),s={id:uid(),name:'Сцена '+(p.scenes.length+1),bg:0,lines:[],choices:[],next:''};p.scenes.push(s);save();go('scene',{sid:s.id})},
  edit:d=>go('scene',{sid:d.id}),
- dels:d=>{if(confirm('Удалить сцену?')){const p=P();p.scenes=p.scenes.filter(s=>s.id!==d.id);p.scenes.forEach(s=>{s.choices.forEach(c=>{if(c.to===d.id)c.to=''});if(s.next===d.id)s.next=''});save();R.keep=1;render()}},
+ dels:async d=>{if(await dlg({t:'Удалить сцену?',ok:'Удалить',danger:1})){const p=P();p.scenes=p.scenes.filter(s=>s.id!==d.id);p.scenes.forEach(s=>{s.choices.forEach(c=>{if(c.to===d.id)c.to=''});if(s.next===d.id)s.next=''});save();R.keep=1;render()}},
  back:()=>go('proj',{tab:'s'}),
- bg:d=>{SC().bg=+d.i;save();R.keep=1;render()},
+ bg:d=>{SC().bg=/^\d+$/.test(d.i)?+d.i:d.i;save();R.keep=1;render()},
  addl:()=>{SC().lines.push({who:'',text:''});save();R.keep=1;render();const b=app.querySelector('.body');b.scrollTop=b.scrollHeight},
  dell:d=>{SC().lines.splice(+d.i,1);save();R.keep=1;render()},
  addc:()=>{SC().choices.push({text:'',to:''});save();R.keep=1;render()},
  delc:d=>{SC().choices.splice(+d.i,1);save();R.keep=1;render()},
  newc:()=>{R.form={name:'',age:'',av:0};R.keep=1;render()},
- fav:d=>{R.form.av=+d.i;render()},
- savec:()=>{const f=R.form;if(!f.name.trim()){alert('Введи имя персонажа');return}P().chars.push({id:uid(),name:f.name.trim(),age:f.age.trim(),av:f.av});R.form=null;save();render()},
- delch:d=>{if(confirm('Удалить персонажа?')){const p=P();p.chars=p.chars.filter(c=>c.id!==d.id);p.scenes.forEach(s=>s.lines.forEach(l=>{if(l.who===d.id)l.who=''}));save();render()}},
- play:d=>{const p=P();const s=d.sid?p.scenes.find(x=>x.id===d.sid):p.scenes[0];if(!s){alert('Сначала добавь сцену');return}if(R.v!=='play'&&R.v!=='end'){R.back=R.v==='scene'?'scene':'proj';R.orig=R.sid}go('play',{sid:s.id,i:0})},
+ fav:d=>{R.form.av=/^\d+$/.test(d.i)?+d.i:d.i;render()},
+ savec:()=>{const f=R.form;if(!f.name.trim()){dlg({t:'Введи имя персонажа',no:'',ok:'Понятно'});return}P().chars.push({id:uid(),name:f.name.trim(),age:f.age.trim(),av:f.av});R.form=null;save();render()},
+ delch:async d=>{if(await dlg({t:'Удалить персонажа?',ok:'Удалить',danger:1})){const p=P();p.chars=p.chars.filter(c=>c.id!==d.id);p.scenes.forEach(s=>s.lines.forEach(l=>{if(l.who===d.id)l.who=''}));save();render()}},
+ play:d=>{const p=P();R.vars=Object.fromEntries(p.vars.map(v=>[v.id,+v.val||0]));const s=d.sid?p.scenes.find(x=>x.id===d.sid):p.scenes[0];if(!s){dlg({t:'Сначала добавь сцену',no:'',ok:'Понятно'});return}if(R.v!=='play'&&R.v!=='end'){R.back=R.v==='scene'?'scene':'proj';R.orig=R.sid}go('play',{sid:s.id,i:0})},
  next:()=>{R.i++;render()},
- pick:d=>{const c=SC2().choices[+d.i];if(!c.to){go('end');return}R.sid=c.to;R.i=0;render()},
+ pick:d=>{const c=SC2().choices[+d.i];if(c.fv)R.vars[c.fv]=(R.vars[c.fv]||0)+(+c.fd||0);if(!c.to){go('end');return}R.sid=c.to;R.i=0;render()},
  stop:()=>R.back==='scene'&&P().scenes.some(s=>s.id===R.orig)?go('scene',{sid:R.orig}):go('proj')
 };
+Object.assign(A,{
+ upbg:()=>upl('b',id=>{SC().bg=id;R.keep=1;render()}),
+ upav:()=>upl('a',id=>{R.form.av=id;render()}),
+ addv:()=>{P().vars.push({id:uid(),name:'Симпатия',val:0});save();R.keep=1;render()},
+ delv:d=>{const p=P(),v=p.vars.splice(+d.i,1)[0];p.scenes.forEach(s=>s.choices.forEach(c=>{if(c.fv===v.id)c.fv='';if(c.rv===v.id)c.rv=''}));save();R.keep=1;render()},
+ up:d=>{const a=P().scenes,i=a.findIndex(s=>s.id===d.id);if(i>0){[a[i-1],a[i]]=[a[i],a[i-1]];save();R.keep=1;render()}},
+ exp:()=>{const p=P(),a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(p)],{type:'application/json'}));a.download=(p.title.replace(/[^\wа-яё-]+/gi,'_')||'novel')+'.json';a.click()},
+ imp:()=>{const f=document.createElement('input');f.type='file';f.accept='.json';f.onchange=async()=>{try{const p=JSON.parse(await f.files[0].text());if(!p.title||!Array.isArray(p.scenes)||!Array.isArray(p.chars))throw 0;p.id=uid();p.vars=p.vars||[];p.imgs=p.imgs||{};S.projects.unshift(p);save();render()}catch(e){dlg({t:'Это не файл новеллы',p:'Нужен .json, выгруженный из NovelCraft.',no:'',ok:'Понятно'})}};f.click()}
+});
 const SC2=()=>P().scenes.find(s=>s.id===R.sid);
 app.addEventListener('click',e=>{const el=e.target.closest('[data-a]');if(!el)return;e.stopPropagation();const f=A[el.dataset.a];if(f)f(el.dataset)});
 function onInput(e){const el=e.target,d=el.dataset;if(!d.t)return;
- const m=d.t==='p'?P():d.t==='s'?SC():d.t==='l'?SC().lines[+d.i]:d.t==='h'?SC().choices[+d.i]:R.form;
- if(m){m[d.k]=el.value;if(d.t!=='f')save()}}
+ const m=d.t==='v'?P().vars[+d.i]:d.t==='p'?P():d.t==='s'?SC():d.t==='l'?SC().lines[+d.i]:d.t==='h'?SC().choices[+d.i]:R.form;
+ if(m){m[d.k]=el.type==='number'?+el.value:el.value;if(d.t!=='f')save()}}
 app.addEventListener('input',onInput);app.addEventListener('change',onInput);
 render();
 </script></body></html>
